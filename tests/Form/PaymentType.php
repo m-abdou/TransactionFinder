@@ -3,7 +3,7 @@
 use App\Form\PaymentType;
 use Symfony\Bundle\FrameworkBundle\Test\KernelTestCase;
 
-class HotelTypeTest extends KernelTestCase
+class PaymentTypeTest extends KernelTestCase
 {
     /** @var \Symfony\Component\Form\FormFactory $formFactory */
     private $formFactory;
