@@ -1,0 +1,78 @@
+# This file is the entry point to configure your own services.
+# Files in the packages/ subdirectory configure your dependencies.
+
+# Put parameters here that don't need to change on each machine where the app is deployed
+# https://symfony.com/doc/current/best_practices/configuration.html#application-related-configuration
+parameters:
+
+services:
+    # default configuration for services in *this* file
+    _defaults:
+        autowire: true      # Automatically injects dependencies in your services.
+        autoconfigure: true # Automatically registers your services as commands, event subscribers, etc.
+
+    # makes classes in src/ available to be used as services
+    # this creates a service per class whose id is the fully-qualified class name
+    App\:
+        resource: '../src/*'
+        exclude: '../src/{DependencyInjection,Entity,Migrations,Tests,Kernel.php}'
+
+    # controllers are imported separately to make sure services can be injected
+    # as action arguments even if you don't extend any base controller class
+    App\Controller\:
+        resource: '../src/Controller'
+        tags: ['controller.service_arguments']
+
+    # add more service definitions when explicit configuration is needed
+    # please note that last definitions always *replace* previous ones
+
+    service.apiHelper:
+        class: App\Services\APIHelper
+        autowire: false
+        public: true
+
+
+    service.provider.factory:
+        class: App\Services\Provider\ProviderFactory
+        autowire: false
+        public: true
+        arguments:
+        - '@service.provider.flyAmapper'
+        - '@service.provider.flyBmapper'
+
+    service.provider.flyBmapper:
+        class: App\Services\Provider\Mapper\FlypayBMapper
+        autowire: false
+        public: true
+
+    service.provider.flyAmapper:
+        class: App\Services\Provider\Mapper\FlypayAMapper
+        autowire: false
+        public: true
+
+    service.manager:
+        class: App\Services\Manager
+        autowire: false
+        public: true
+        arguments:
+        - '@service.handler.validator'
+        - '@service.handler.loader'
+        - '@service.handler.operator'
+
+    service.handler.validator:
+        class: App\Services\Handlers\Validator
+        autowire: false
+        public: true
+
+
+    service.handler.loader:
+        class: App\Services\Handlers\Loader
+        autowire: false
+        public: true
+        arguments:
+        - '@service.provider.factory'
+
+    service.handler.operator:
+        class: App\Services\Handlers\Operator
+        autowire: false
+        public: true
