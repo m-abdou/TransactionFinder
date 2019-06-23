@@ -10,17 +10,28 @@ This Repo is Rest Api For payment Transactions you can search by
   
 ## Installation   
 
-clone this application from https://github.com/m-abdou/hotelsFinder.git
+clone this application from git@github.com:m-abdou/transactionFinder.git
 
 cd to transactionFinder directory 
 
  - run composer install 
  - run php bin/console server:run
  - open browser and put this link http://127.0.0.1:8001/api/payment/transaction
-    you will get all register hotels
+    you will get all 
      
  ** test Cases run those commands 
 php bin/phpunit
+ 
+ 
+ or can use docker 
+ 
+ cd to transactionFinder/docker 
+ 
+ make build 
+ make install
+ make up 
+ 
+ http://127.0.0.1:7070/api/payment/transaction
  
  ## Documentation
  
