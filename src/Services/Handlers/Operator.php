@@ -41,7 +41,7 @@ class Operator
 
 
         if(isset($queryParam['statusCode']) && !empty($queryParam['statusCode'])) {
-            $this->searchBStatusCode($queryParam['statusCode']);
+            $this->searchByStatusCode($queryParam['statusCode']);
         }
 
         if(isset($queryParam['provider']) && !empty($queryParam['provider'])) {
@@ -66,14 +66,14 @@ class Operator
 
 
     /**
-     * searchBStatusCode
+     * searchByStatusCode
      *
      * @param string $statusCode statusCode
      *
      * @return void
      *
      */
-    public function searchBStatusCode(string $statusCode) :void
+    public function searchByStatusCode(string $statusCode) :void
     {
         $condition = Criteria::expr()->eq('statusCode', $statusCode);
         $this->criteria->andWhere($condition);
