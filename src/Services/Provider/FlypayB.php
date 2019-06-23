@@ -16,13 +16,13 @@ class FlypayB extends AbstractProvider
      */
     private $transactions;
 
-    /** @var  FlypayAMapper*/
+    /** @var  FlypayBMapper*/
     private $mapper;
 
     public function __construct(FlypayBMapper $mapper)
     {
         $this->mapper = $mapper;
-        $this->transactions = $this->mapper->convertJsonToArrayCollection($this->fetch(), model::class);
+        $this->transactions = $this->mapper->convertJsonToArrayCollection($this->fetch());
     }
 
 
@@ -47,7 +47,7 @@ class FlypayB extends AbstractProvider
     {
 
         if(!$this->transactions || empty($transactions)) {
-            $this->transactions = $this->mapper->convertJsonToArrayCollection($this->fetch(), model::class);
+            $this->transactions = $this->mapper->convertJsonToArrayCollection($this->fetch());
         }else {
             $this->transactions = $transactions;
         }
